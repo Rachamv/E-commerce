@@ -30,7 +30,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # Local apps
-    'core'
+    'core',
 ]
 
 MIDDLEWARE = [
