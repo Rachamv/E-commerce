@@ -32,6 +32,7 @@ INSTALLED_APPS = [
 
     # Local apps
     'core',
+    'userauths',
 ]
 
 MIDDLEWARE = [
@@ -132,3 +133,5 @@ JAZZMIN_SETTINGS = {
     'site_logo': "assets/imgs/theme/loading.gif",
     'copyright': "Royal Phoenix",
 }
+
+AUTH_USER_MODEL = 'userauths.User'
