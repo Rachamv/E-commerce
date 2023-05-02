@@ -35,21 +35,11 @@ def user_directory_path(instance, filename):
     return 'user_{0}/{1}'.format(instance.user.id, filename)
 
 
-############################################## Category ##############################################
-############################################## Category ##############################################
-############################################## Category ##############################################
-############################################## Category ##############################################
-
 class Category(models.Model):
-    cid = ShortUUIDField(
-        unique=True,
-        length=10,
-        max_length=30,
-        prefix="cat",
-        alphabet="abcdefghijk123456789"
-    )
-    title = models.CharField(max_length=100)
-    image = models.ImageField(upload_to="category")
+    cid = ShortUUIDField(unique=True, length=10, max_length=20,
+                         prefix="cat", alphabet="abcdefgh12345")
+    title = models.CharField(max_length=100, default="Food")
+    image = models.ImageField(upload_to="category", default="category.jpg")
 
     class Meta:
         verbose_name_plural = "Categories"
@@ -64,7 +54,6 @@ class Category(models.Model):
 class Tags(models.Model):
     pass
 
-
 ############################################## Vendor and Review ##############################################
 ############################################## Vendor and Review ##############################################
 ############################################## Vendor and Review ##############################################
@@ -72,23 +61,17 @@ class Tags(models.Model):
 
 
 class Vendor(models.Model):
-    vid = ShortUUIDField(
-        unique=True,
-        length=10,
-        max_length=30,
-        prefix="ven",
-        alphabet="abcdefghijk123456789"
-    )
+    vid = ShortUUIDField(unique=True, length=10, max_length=20,
+                         prefix="ven", alphabet="abcdefgh12345")
 
     title = models.CharField(max_length=100, default="Nestify")
     image = models.ImageField(
         upload_to=user_directory_path, default="vendor.jpg")
     cover_image = models.ImageField(
         upload_to=user_directory_path, default="vendor.jpg")
-    description = models.TextField(
-        null=True, blank=True, default="I am am Amazing Vendor")
-
-    # description = RichTextUploadingField(null=True, blank=True, default="I am am Amazing Vendor")
+    description = models.TextField(null=True, blank=True, default="I am am Amazing Vendor")
+    # description = RichTextUploadingField(
+    #     null=True, blank=True, default="I am am Amazing Vendor")
 
     address = models.CharField(max_length=100, default="123 Main Street.")
     contact = models.CharField(max_length=100, default="+123 (456) 789")
@@ -110,7 +93,6 @@ class Vendor(models.Model):
     def __str__(self):
         return self.title
 
-
 class VendorReview(models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     vendor = models.ForeignKey(
@@ -128,20 +110,15 @@ class VendorReview(models.Model):
     def get_rating(self):
         return self.rating
 
+############################################## Product ##############################################
+############################################## Product ##############################################
+############################################## Product ##############################################
+############################################## Product ##############################################
 
-############################################## Product ##############################################
-############################################## Product ##############################################
-############################################## Product ##############################################
-############################################## Product ##############################################
 
 class Product(models.Model):
-    pid = ShortUUIDField(
-        unique=True,
-        length=10,
-        max_length=30,
-        prefix="pro",
-        alphabet="abcdefghijk123456789"
-    )
+    pid = ShortUUIDField(unique=True, length=10,
+                         max_length=20, prefix="pid", alphabet="abcdefgh12345")
 
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     category = models.ForeignKey(
@@ -152,8 +129,7 @@ class Product(models.Model):
     title = models.CharField(max_length=100, default="Fresh Pear")
     image = models.ImageField(
         upload_to=user_directory_path, default="product.jpg")
-    description = models.TextField(
-        null=True, blank=True, default="This is the product")
+    description = models.TextField(null=True, blank=True, default="This is the product")
     # description = RichTextUploadingField(
     #     null=True, blank=True, default="This is the product")
 
@@ -174,7 +150,7 @@ class Product(models.Model):
 
     # tags = TaggableManager(blank=True)
 
-    tags = models.ForeignKey(Tags, on_delete=models.SET_NULL, null=True)
+    # tags = models.ForeignKey(Tags, on_delete=models.SET_NULL, null=True)
 
     product_status = models.CharField(
         choices=STATUS, max_length=10, default="in_review")
@@ -184,13 +160,8 @@ class Product(models.Model):
     featured = models.BooleanField(default=False)
     digital = models.BooleanField(default=False)
 
-    sku = ShortUUIDField(
-        unique=True,
-        length=4,
-        max_length=10,
-        prefix="sku",
-        alphabet="1234567890"
-    )
+    sku = ShortUUIDField(unique=True, length=4, max_length=10,
+                         prefix="sku", alphabet="1234567890")
 
     date = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(null=True, blank=True)
@@ -219,10 +190,11 @@ class ProductImages(models.Model):
     class Meta:
         verbose_name_plural = "Product Images"
 
-############################################## Cart, Order and OrderITems  #####################################################
-############################################## Cart, Order and OrderITems  #####################################################
-############################################## Cart, Order and OrderITems  #####################################################
-############################################## Cart, Order and OrderITems  #####################################################
+
+############################################## Cart, Order, OrderITems and Address ##################################
+############################################## Cart, Order, OrderITems and Address ##################################
+############################################## Cart, Order, OrderITems and Address ##################################
+############################################## Cart, Order, OrderITems and Address ##################################
 
 
 class CartOrder(models.Model):
@@ -233,14 +205,8 @@ class CartOrder(models.Model):
     order_date = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     product_status = models.CharField(
         choices=STATUS_CHOICE, max_length=30, default="processing")
-    sku = ShortUUIDField(
-        null=True,
-        blank=True,
-        length=5,
-        prefix="SKU",
-        max_length=20,
-        alphabet="abcdefgh12345"
-    )
+    sku = ShortUUIDField(null=True, blank=True, length=5,
+                         prefix="SKU", max_length=20, alphabet="abcdefgh12345")
 
     class Meta:
         verbose_name_plural = "Cart Order"
@@ -265,10 +231,10 @@ class CartOrderProducts(models.Model):
         return mark_safe('<img src="/media/%s" width="50" height="50" />' % (self.image))
 
 
-############################################## Product Revew, wishlists, Address ################################################
-############################################## Product Revew, wishlists, Address ################################################
-############################################## Product Revew, wishlists, Address ################################################
-############################################## Product Revew, wishlists, Address ################################################
+############################################## Product Revew, wishlists, Address ##################################
+############################################## Product Revew, wishlists, Address ##################################
+############################################## Product Revew, wishlists, Address ##################################
+############################################## Product Revew, wishlists, Address ##################################
 
 
 class ProductReview(models.Model):
