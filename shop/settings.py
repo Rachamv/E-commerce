@@ -11,7 +11,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-ijhm@!-(brwradx^!&vei3f^9jljz4i!n8%o*x#6m=ampquo&v'
+SECRET_KEY = 'django-insecure-8_d#n(u6cw(7g**b03eln5*iro@cmuwr1fg(%_25dku&0b-$vf'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -45,7 +45,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'ecompro.urls'
+ROOT_URLCONF = 'shop.urls'
 
 TEMPLATES = [
     {
@@ -63,7 +63,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'ecompro.wsgi.application'
+WSGI_APPLICATION = 'shop.wsgi.application'
 
 
 # Database

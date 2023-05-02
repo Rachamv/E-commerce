@@ -65,10 +65,10 @@ class Tags(models.Model):
     pass
 
 
-############################################## Vendor ##############################################
-############################################## Vendor ##############################################
-############################################## Vendor ##############################################
-############################################## Vendor ##############################################
+############################################## Vendor and Review ##############################################
+############################################## Vendor and Review ##############################################
+############################################## Vendor and Review ##############################################
+############################################## Vendor and Review ##############################################
 
 
 class Vendor(models.Model):
@@ -87,6 +87,7 @@ class Vendor(models.Model):
         upload_to=user_directory_path, default="vendor.jpg")
     description = models.TextField(
         null=True, blank=True, default="I am am Amazing Vendor")
+
     # description = RichTextUploadingField(null=True, blank=True, default="I am am Amazing Vendor")
 
     address = models.CharField(max_length=100, default="123 Main Street.")
@@ -108,6 +109,24 @@ class Vendor(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class VendorReview(models.Model):
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    vendor = models.ForeignKey(
+        Vendor, on_delete=models.SET_NULL, null=True, related_name="reviews")
+    review = models.TextField()
+    rating = models.IntegerField(choices=RATING, default=None)
+    date = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name_plural = "Vendor Reviews"
+
+    def __str__(self):
+        return self.vendor.title
+
+    def get_rating(self):
+        return self.rating
 
 
 ############################################## Product ##############################################
@@ -133,7 +152,8 @@ class Product(models.Model):
     title = models.CharField(max_length=100, default="Fresh Pear")
     image = models.ImageField(
         upload_to=user_directory_path, default="product.jpg")
-    description = models.TextField(null=True, blank=True, default="This is the product")
+    description = models.TextField(
+        null=True, blank=True, default="This is the product")
     # description = RichTextUploadingField(
     #     null=True, blank=True, default="This is the product")
 
@@ -165,12 +185,12 @@ class Product(models.Model):
     digital = models.BooleanField(default=False)
 
     sku = ShortUUIDField(
-        unique=True, 
-        length=4, 
+        unique=True,
+        length=4,
         max_length=10,
-        prefix="sku", 
+        prefix="sku",
         alphabet="1234567890"
-        )
+    )
 
     date = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(null=True, blank=True)
@@ -199,7 +219,6 @@ class ProductImages(models.Model):
     class Meta:
         verbose_name_plural = "Product Images"
 
-
 ############################################## Cart, Order and OrderITems  #####################################################
 ############################################## Cart, Order and OrderITems  #####################################################
 ############################################## Cart, Order and OrderITems  #####################################################
@@ -215,13 +234,13 @@ class CartOrder(models.Model):
     product_status = models.CharField(
         choices=STATUS_CHOICE, max_length=30, default="processing")
     sku = ShortUUIDField(
-        null=True, 
-        blank=True, 
+        null=True,
+        blank=True,
         length=5,
-        prefix="SKU", 
-        max_length=20, 
+        prefix="SKU",
+        max_length=20,
         alphabet="abcdefgh12345"
-        )
+    )
 
     class Meta:
         verbose_name_plural = "Cart Order"
@@ -286,6 +305,7 @@ class Address(models.Model):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     mobile = models.CharField(max_length=300, null=True)
     address = models.CharField(max_length=100, null=True)
+    zipcode = models.CharField(max_length=20, null=True)
     status = models.BooleanField(default=False)
 
     class Meta:
