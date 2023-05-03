@@ -1,7 +1,6 @@
-{% load static %}
-
 <!DOCTYPE html>
 <html class="no-js" lang="en">
+  {% load static %}
   <head>
     <meta charset="utf-8" />
     <title>Royal Phoenix - Multipurpose Market</title>
@@ -16,31 +15,14 @@
     <link
       rel="shortcut icon"
       type="image/x-icon"
-      href="assets/imgs/theme/favicon.svg"
+      href="{% static 'assets/imgs/theme/favicon.svg' %}"
     />
     <!-- Template CSS -->
-    <link rel="stylesheet" href="assets/css/plugins/slider-range.css" />
+    <link
+      rel="stylesheet"
+      href="{% static 'assets/css/plugins/slider-range.css' %}"
+    />
     <link rel="stylesheet" href="{% static 'assets/css/main.css' %}" />
-
-    <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-      integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg=="
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    />
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
-    />
   </head>
 
   <body>
@@ -206,7 +188,7 @@
                   <div class="font-xs">
                     <ul>
                       <li class="mb-5">
-                        Vendor: <span class="text-brand">Royal Phoenix</span>
+                        Vendor: <span class="text-brand">Nest</span>
                       </li>
                       <li class="mb-5">
                         MFG:<span class="text-brand"> Jun 4.2022</span>
@@ -234,10 +216,10 @@
             <div class="col-xl-3 col-lg-4">
               <div class="header-info">
                 <ul>
-                  <li><a href="3">About Us</a></li>
-                  <li><a href="#">My Account</a></li>
-                  <li><a href="#">Wishlist</a></li>
-                  <li><a href="#">Order Tracking</a></li>
+                  <li><a href="page-about.htlm">About Us</a></li>
+                  <li><a href="page-account.html">My Account</a></li>
+                  <li><a href="shop-wishlist.html">Wishlist</a></li>
+                  <li><a href="shop-order.html">Order Tracking</a></li>
                 </ul>
               </div>
             </div>
@@ -339,7 +321,7 @@
             </div>
             <div class="header-right">
               <div class="search-style-2">
-                <form action="#" method="GET">
+                <form action="#">
                   <select class="select-active">
                     <option>All Categories</option>
                     <option>Milks and Dairies</option>
@@ -353,14 +335,7 @@
                     <option>Noodles & Rice</option>
                     <option>Ice cream</option>
                   </select>
-                  <input
-                    type="text"
-                    placeholder="Search for items..."
-                    name="q"
-                  />
-                  <button class="material-symbols-outlined" type="submit">
-                    <span class="material-symbols-outlined">search</span>
-                  </button>
+                  <input type="text" placeholder="Search for items..." />
                 </form>
               </div>
               <div class="header-action-right">
@@ -516,19 +491,11 @@
                             >Setting</a
                           >
                         </li>
-                        {% if request.user.is_authenticated %}
                         <li>
-                          <a href="{% url 'userauths:sign-out' %}"
+                          <a href="page-login.html"
                             ><i class="fi fi-rs-sign-out mr-10"></i>Sign out</a
                           >
                         </li>
-                        {% else %}
-                        <li>
-                          <a href="{% url 'userauths:sign-in' %}"
-                            ><i class="fi fi-rs-sign-in mr-10"></i>Sign In</a
-                          >
-                        </li>
-                        {% endif %}
                       </ul>
                     </div>
                   </div>
@@ -560,88 +527,14 @@
                 >
                   <div class="d-flex categori-dropdown-inner">
                     <ul>
+                      {% for c in categories %}
+
                       <li>
-                        <a href="shop-grid-right.html">
-                          <img
-                            src="{% static 'assets/imgs/theme/icons/category-1.svg' %}"
-                            alt=""
-                          />Milks and Dairies</a
+                        <a href="{% url 'core:category-product-list' c.cid %}">
+                          <img src="{{ c.image.url }}" alt="" />{{c.title}}</a
                         >
                       </li>
-                      <li>
-                        <a href="shop-grid-right.html">
-                          <img
-                            src="{% static 'assets/imgs/theme/icons/category-2.svg' %}"
-                            alt=""
-                          />Clothing & beauty</a
-                        >
-                      </li>
-                      <li>
-                        <a href="shop-grid-right.html">
-                          <img
-                            src="{% static 'assets/imgs/theme/icons/category-3.svg' %}"
-                            alt=""
-                          />Pet Foods & Toy</a
-                        >
-                      </li>
-                      <li>
-                        <a href="shop-grid-right.html">
-                          <img
-                            src="{% static 'assets/imgs/theme/icons/category-4.svg' %}"
-                            alt=""
-                          />Baking material</a
-                        >
-                      </li>
-                      <li>
-                        <a href="shop-grid-right.html">
-                          <img
-                            src="{% static 'assets/imgs/theme/icons/category-5.svg' %}"
-                            alt=""
-                          />Fresh Fruit</a
-                        >
-                      </li>
-                    </ul>
-                    <ul class="end">
-                      <li>
-                        <a href="shop-grid-right.html">
-                          <img
-                            src="{% static 'assets/imgs/theme/icons/category-6.svg' %}"
-                            alt=""
-                          />Wines & Drinks</a
-                        >
-                      </li>
-                      <li>
-                        <a href="shop-grid-right.html">
-                          <img
-                            src="{% static 'assets/imgs/theme/icons/category-7.svg' %}"
-                            alt=""
-                          />Fresh Seafood</a
-                        >
-                      </li>
-                      <li>
-                        <a href="shop-grid-right.html">
-                          <img
-                            src="{% static 'assets/imgs/theme/icons/category-8.svg' %}"
-                            alt=""
-                          />Fast food</a
-                        >
-                      </li>
-                      <li>
-                        <a href="shop-grid-right.html">
-                          <img
-                            src="{% static 'assets/imgs/theme/icons/category-9.svg' %}"
-                            alt=""
-                          />Vegetables</a
-                        >
-                      </li>
-                      <li>
-                        <a href="shop-grid-right.html">
-                          <img
-                            src="{% static 'assets/imgs/theme/icons/category-10.svg' %}"
-                            alt=""
-                          />Bread and Juice</a
-                        >
-                      </li>
+                      {% endfor %}
                     </ul>
                   </div>
                   <div class="more_slide_open" style="display: none">
@@ -695,133 +588,42 @@
               >
                 <nav>
                   <ul>
-                    <li class="hot-deals">
+                    <li class="vendorReview,hot-deals">
                       <img
                         src="{% static 'assets/imgs/theme/icons/icon-hot.svg' %}"
                         alt="hot deals"
-                      /><a href="shop-grid-right.html">Deals</a>
+                      /><a href="{% url 'core:product-list' %}">Deals</a>
                     </li>
                     <li>
-                      <a class="active" href="index.html"
-                        >Home <i class="fi-rs-angle-down"></i
-                      ></a>
-                      <ul class="sub-menu">
-                        <li><a href="index.html">Home 1</a></li>
-                        <li><a href="index-2.html">Home 2</a></li>
-                        <li><a href="index-3.html">Home 3</a></li>
-                        <li><a href="index-4.html">Home 4</a></li>
-                        <li><a href="index-5.html">Home 5</a></li>
-                        <li><a href="index-6.html">Home 6</a></li>
-                      </ul>
-                    </li>
-                    <li>
-                      <a href="page-about.html">About</a>
+                      <a class="active" href="{% url 'core:index' %}">Home</a>
                     </li>
                     <li>
                       <a href="shop-grid-right.html"
-                        >Shop <i class="fi-rs-angle-down"></i
+                        >Category <i class="fi-rs-angle-down"></i
                       ></a>
                       <ul class="sub-menu">
+                        {% for c in categories %}
                         <li>
-                          <a href="shop-grid-right.html"
-                            >Shop Grid – Right Sidebar</a
+                          <a href="{% url 'core:category-product-list' c.cid %}"
+                            >{{c.title}}</a
                           >
                         </li>
+                        {% endfor %}
+                        <hr />
                         <li>
-                          <a href="shop-grid-left.html"
-                            >Shop Grid – Left Sidebar</a
+                          <a href="{% url 'core:category-list' %}"
+                            >All Categories</a
                           >
-                        </li>
-                        <li>
-                          <a href="shop-list-right.html"
-                            >Shop List – Right Sidebar</a
-                          >
-                        </li>
-                        <li>
-                          <a href="shop-list-left.html"
-                            >Shop List – Left Sidebar</a
-                          >
-                        </li>
-                        <li><a href="shop-fullwidth.html">Shop - Wide</a></li>
-                        <li>
-                          <a href="#"
-                            >Single Product <i class="fi-rs-angle-right"></i
-                          ></a>
-                          <ul class="level-menu">
-                            <li>
-                              <a href="shop-product-right.html"
-                                >Product – Right Sidebar</a
-                              >
-                            </li>
-                            <li>
-                              <a href="shop-product-left.html"
-                                >Product – Left Sidebar</a
-                              >
-                            </li>
-                            <li>
-                              <a href="shop-product-full.html"
-                                >Product – No sidebar</a
-                              >
-                            </li>
-                            <li>
-                              <a href="shop-product-vendor.html"
-                                >Product – Vendor Infor</a
-                              >
-                            </li>
-                          </ul>
-                        </li>
-                        <li><a href="shop-filter.html">Shop – Filter</a></li>
-                        <li>
-                          <a href="shop-wishlist.html">Shop – Wishlist</a>
-                        </li>
-                        <li><a href="shop-cart.html">Shop – Cart</a></li>
-                        <li>
-                          <a href="shop-checkout.html">Shop – Checkout</a>
-                        </li>
-                        <li><a href="shop-compare.html">Shop – Compare</a></li>
-                        <li>
-                          <a href="#"
-                            >Shop Invoice<i class="fi-rs-angle-right"></i
-                          ></a>
-                          <ul class="level-menu">
-                            <li>
-                              <a href="shop-invoice-1.html">Shop Invoice 1</a>
-                            </li>
-                            <li>
-                              <a href="shop-invoice-2.html">Shop Invoice 2</a>
-                            </li>
-                            <li>
-                              <a href="shop-invoice-3.html">Shop Invoice 3</a>
-                            </li>
-                            <li>
-                              <a href="shop-invoice-4.html">Shop Invoice 4</a>
-                            </li>
-                            <li>
-                              <a href="shop-invoice-5.html">Shop Invoice 5</a>
-                            </li>
-                            <li>
-                              <a href="shop-invoice-6.html">Shop Invoice 6</a>
-                            </li>
-                          </ul>
                         </li>
                       </ul>
                     </li>
+
                     <li>
-                      <a href="#">Vendors <i class="fi-rs-angle-down"></i></a>
-                      <ul class="sub-menu">
-                        <li><a href="vendors-grid.html">Vendors Grid</a></li>
-                        <li><a href="vendors-list.html">Vendors List</a></li>
-                        <li>
-                          <a href="vendor-details-1.html">Vendor Details 01</a>
-                        </li>
-                        <li>
-                          <a href="vendor-details-2.html">Vendor Details 02</a>
-                        </li>
-                        <li>
-                          <a href="vendor-dashboard.html">Vendor Dashboard</a>
-                        </li>
-                        <li><a href="vendor-guide.html">Vendor Guide</a></li>
-                      </ul>
+                      <a href="{% url 'core:product-list'  %}">Shop</a>
+                    </li>
+
+                    <li>
+                      <a href="#">Vendors </a>
                     </li>
                     <li class="position-static">
                       <a href="#">Mega menu <i class="fi-rs-angle-down"></i></a>
@@ -1116,331 +918,9 @@
               </div>
             </div>
           </div>
-          {% if messages %}
-                    {% for message in messages %}
-                        <div class="alert alert-{{message.tags}}">
-                            <strong>{{ message }}</strong>
-                        </div>
-                    {% endfor %}
-                {% endif %}
-                <script>
-                    setTimeout (() => {
-                        $(".alert").alert("close");
-                    }, 3000)
-                </script>
         </div>
       </div>
     </header>
-    <div class="mobile-header-active mobile-header-wrapper-style">
-      <div class="mobile-header-wrapper-inner">
-        <div class="mobile-header-top">
-          <div class="mobile-header-logo">
-            <a href="index.html"
-              ><img src="{% static 'assets/imgs/theme/logo.svg' %}" alt="logo"
-            /></a>
-          </div>
-          <div
-            class="mobile-menu-close close-style-wrap close-style-position-inherit"
-          >
-            <button class="close-style search-close">
-              <i class="icon-top"></i>
-              <i class="icon-bottom"></i>
-            </button>
-          </div>
-        </div>
-        <div class="mobile-header-content-area">
-          <div class="mobile-search search-style-3 mobile-header-border">
-            <form action="#">
-              <input type="text" placeholder="Search for items…" />
-              <button type="submit"><i class="fi-rs-search"></i></button>
-            </form>
-          </div>
-          <div class="mobile-menu-wrap mobile-header-border">
-            <!-- mobile menu start -->
-            <nav>
-              <ul class="mobile-menu font-heading">
-                <li class="menu-item-has-children">
-                  <a href="index.html">Home</a>
-                  <ul class="dropdown">
-                    <li><a href="index.html">Home 1</a></li>
-                    <li><a href="index-2.html">Home 2</a></li>
-                    <li><a href="index-3.html">Home 3</a></li>
-                    <li><a href="index-4.html">Home 4</a></li>
-                    <li><a href="index-5.html">Home 5</a></li>
-                    <li><a href="index-6.html">Home 6</a></li>
-                  </ul>
-                </li>
-                <li class="menu-item-has-children">
-                  <a href="shop-grid-right.html">shop</a>
-                  <ul class="dropdown">
-                    <li>
-                      <a href="shop-grid-right.html"
-                        >Shop Grid – Right Sidebar</a
-                      >
-                    </li>
-                    <li>
-                      <a href="shop-grid-left.html">Shop Grid – Left Sidebar</a>
-                    </li>
-                    <li>
-                      <a href="shop-list-right.html"
-                        >Shop List – Right Sidebar</a
-                      >
-                    </li>
-                    <li>
-                      <a href="shop-list-left.html">Shop List – Left Sidebar</a>
-                    </li>
-                    <li><a href="shop-fullwidth.html">Shop - Wide</a></li>
-                    <li class="menu-item-has-children">
-                      <a href="#">Single Product</a>
-                      <ul class="dropdown">
-                        <li>
-                          <a href="shop-product-right.html"
-                            >Product – Right Sidebar</a
-                          >
-                        </li>
-                        <li>
-                          <a href="shop-product-left.html"
-                            >Product – Left Sidebar</a
-                          >
-                        </li>
-                        <li>
-                          <a href="shop-product-full.html"
-                            >Product – No sidebar</a
-                          >
-                        </li>
-                        <li>
-                          <a href="shop-product-vendor.html"
-                            >Product – Vendor Infor</a
-                          >
-                        </li>
-                      </ul>
-                    </li>
-                    <li><a href="shop-filter.html">Shop – Filter</a></li>
-                    <li><a href="shop-wishlist.html">Shop – Wishlist</a></li>
-                    <li><a href="shop-cart.html">Shop – Cart</a></li>
-                    <li><a href="shop-checkout.html">Shop – Checkout</a></li>
-                    <li><a href="shop-compare.html">Shop – Compare</a></li>
-                    <li class="menu-item-has-children">
-                      <a href="#">Shop Invoice</a>
-                      <ul class="dropdown">
-                        <li>
-                          <a href="shop-invoice-1.html">Shop Invoice 1</a>
-                        </li>
-                        <li>
-                          <a href="shop-invoice-2.html">Shop Invoice 2</a>
-                        </li>
-                        <li>
-                          <a href="shop-invoice-3.html">Shop Invoice 3</a>
-                        </li>
-                        <li>
-                          <a href="shop-invoice-4.html">Shop Invoice 4</a>
-                        </li>
-                        <li>
-                          <a href="shop-invoice-5.html">Shop Invoice 5</a>
-                        </li>
-                        <li>
-                          <a href="shop-invoice-6.html">Shop Invoice 6</a>
-                        </li>
-                      </ul>
-                    </li>
-                  </ul>
-                </li>
-                <li class="menu-item-has-children">
-                  <a href="#">Vendors</a>
-                  <ul class="dropdown">
-                    <li><a href="vendors-grid.html">Vendors Grid</a></li>
-                    <li><a href="vendors-list.html">Vendors List</a></li>
-                    <li>
-                      <a href="vendor-details-1.html">Vendor Details 01</a>
-                    </li>
-                    <li>
-                      <a href="vendor-details-2.html">Vendor Details 02</a>
-                    </li>
-                    <li>
-                      <a href="vendor-dashboard.html">Vendor Dashboard</a>
-                    </li>
-                    <li><a href="vendor-guide.html">Vendor Guide</a></li>
-                  </ul>
-                </li>
-                <li class="menu-item-has-children">
-                  <a href="#">Mega menu</a>
-                  <ul class="dropdown">
-                    <li class="menu-item-has-children">
-                      <a href="#">Women's Fashion</a>
-                      <ul class="dropdown">
-                        <li><a href="shop-product-right.html">Dresses</a></li>
-                        <li>
-                          <a href="shop-product-right.html">Blouses & Shirts</a>
-                        </li>
-                        <li>
-                          <a href="shop-product-right.html"
-                            >Hoodies & Sweatshirts</a
-                          >
-                        </li>
-                        <li>
-                          <a href="shop-product-right.html">Women's Sets</a>
-                        </li>
-                      </ul>
-                    </li>
-                    <li class="menu-item-has-children">
-                      <a href="#">Men's Fashion</a>
-                      <ul class="dropdown">
-                        <li><a href="shop-product-right.html">Jackets</a></li>
-                        <li>
-                          <a href="shop-product-right.html"
-                            >Casual Faux Leather</a
-                          >
-                        </li>
-                        <li>
-                          <a href="shop-product-right.html">Genuine Leather</a>
-                        </li>
-                      </ul>
-                    </li>
-                    <li class="menu-item-has-children">
-                      <a href="#">Technology</a>
-                      <ul class="dropdown">
-                        <li>
-                          <a href="shop-product-right.html">Gaming Laptops</a>
-                        </li>
-                        <li>
-                          <a href="shop-product-right.html"
-                            >Ultraslim Laptops</a
-                          >
-                        </li>
-                        <li><a href="shop-product-right.html">Tablets</a></li>
-                        <li>
-                          <a href="shop-product-right.html"
-                            >Laptop Accessories</a
-                          >
-                        </li>
-                        <li>
-                          <a href="shop-product-right.html"
-                            >Tablet Accessories</a
-                          >
-                        </li>
-                      </ul>
-                    </li>
-                  </ul>
-                </li>
-                <li class="menu-item-has-children">
-                  <a href="blog-category-fullwidth.html">Blog</a>
-                  <ul class="dropdown">
-                    <li>
-                      <a href="blog-category-grid.html">Blog Category Grid</a>
-                    </li>
-                    <li>
-                      <a href="blog-category-list.html">Blog Category List</a>
-                    </li>
-                    <li>
-                      <a href="blog-category-big.html">Blog Category Big</a>
-                    </li>
-                    <li>
-                      <a href="blog-category-fullwidth.html"
-                        >Blog Category Wide</a
-                      >
-                    </li>
-                    <li class="menu-item-has-children">
-                      <a href="#">Single Product Layout</a>
-                      <ul class="dropdown">
-                        <li><a href="blog-post-left.html">Left Sidebar</a></li>
-                        <li>
-                          <a href="blog-post-right.html">Right Sidebar</a>
-                        </li>
-                        <li>
-                          <a href="blog-post-fullwidth.html">No Sidebar</a>
-                        </li>
-                      </ul>
-                    </li>
-                  </ul>
-                </li>
-                <li class="menu-item-has-children">
-                  <a href="#">Pages</a>
-                  <ul class="dropdown">
-                    <li><a href="page-about.html">About Us</a></li>
-                    <li><a href="page-contact.html">Contact</a></li>
-                    <li><a href="page-account.html">My Account</a></li>
-                    <li><a href="page-login.html">Login</a></li>
-                    <li><a href="page-register.html">Register</a></li>
-                    <li>
-                      <a href="page-forgot-password.html">Forgot password</a>
-                    </li>
-                    <li>
-                      <a href="page-reset-password.html">Reset password</a>
-                    </li>
-                    <li>
-                      <a href="page-purchase-guide.html">Purchase Guide</a>
-                    </li>
-                    <li>
-                      <a href="page-privacy-policy.html">Privacy Policy</a>
-                    </li>
-                    <li><a href="page-terms.html">Terms of Service</a></li>
-                    <li><a href="page-404.html">404 Page</a></li>
-                  </ul>
-                </li>
-                <li class="menu-item-has-children">
-                  <a href="#">Language</a>
-                  <ul class="dropdown">
-                    <li><a href="#">English</a></li>
-                    <li><a href="#">French</a></li>
-                    <li><a href="#">German</a></li>
-                    <li><a href="#">Spanish</a></li>
-                  </ul>
-                </li>
-              </ul>
-            </nav>
-            <!-- mobile menu end -->
-          </div>
-          <div class="mobile-header-info-wrap">
-            <div class="single-mobile-header-info">
-              <a href="page-contact.html"
-                ><i class="fi-rs-marker"></i> Our location
-              </a>
-            </div>
-            <div class="single-mobile-header-info">
-              <a href="page-login.html"
-                ><i class="fi-rs-user"></i>Log In / Sign Up
-              </a>
-            </div>
-            <div class="single-mobile-header-info">
-              <a href="#"
-                ><i class="fi-rs-headphones"></i>(+01) - 2345 - 6789
-              </a>
-            </div>
-          </div>
-          <div class="mobile-social-icon mb-50">
-            <h6 class="mb-15">Follow Us</h6>
-            <a href="#"
-              ><img
-                src="{% static 'assets/imgs/theme/icons/icon-facebook-white.svg' %}"
-                alt=""
-            /></a>
-            <a href="#"
-              ><img
-                src="{% static 'assets/imgs/theme/icons/icon-twitter-white.svg' %}"
-                alt=""
-            /></a>
-            <a href="#"
-              ><img
-                src="{% static 'assets/imgs/theme/icons/icon-instagram-white.svg' %}"
-                alt=""
-            /></a>
-            <a href="#"
-              ><img
-                src="{% static 'assets/imgs/theme/icons/icon-pinterest-white.svg' %}"
-                alt=""
-            /></a>
-            <a href="#"
-              ><img
-                src="{% static 'assets/imgs/theme/icons/icon-youtube-white.svg' %}"
-                alt=""
-            /></a>
-          </div>
-          <div class="site-copyright">
-            Copyright 2022 © Nest. All rights reserved. Powered by AliThemes.
-          </div>
-        </div>
-      </div>
-    </div>
     <!--End header-->
     <!---content start--->
     {% block content %} {% endblock %}
