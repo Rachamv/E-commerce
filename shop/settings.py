@@ -29,7 +29,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
+    # Third Party
+    'taggit',
+    'ckeditor',
+    'bootstrap_datepicker_plus',
+    'bootstrap4',
     # Local apps
     'core',
     'userauths',

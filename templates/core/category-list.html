@@ -183,14 +183,14 @@
             <div class="sidebar-widget widget-category-2 mb-50">
               <h5 class="section-title style-1 mb-30">Category</h5>
               <ul>
-                {% for cat in categories %}
+                {% for c in categories %}
                     <li>
-                    <a href="{% url 'core:category-product-list' cat.cid %}">
+                    <a href="{% url 'core:category-product-list' c.cid %}">
                         <img
-                        src="{{ cat.image.url }}"
+                        src="{{ c.image.url }}"
                         alt=""
-                        />{{ cat.title }}</a
-                    ><span class="count">{{cat.category.count}}</span>
+                        />{{ c.title }}</a
+                    ><span class="count">{{c.category.count}}</span>
                     </li>
                 {% endfor %}
               </ul>
