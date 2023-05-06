@@ -15,6 +15,9 @@ def index(request):
 
     return render(request, 'core\index.html', context)
 
+def home(request):
+    return render(request, 'core\home.html')
+
 
 def product_list_view(request):
     products = Product.objects.filter(
