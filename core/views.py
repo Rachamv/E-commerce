@@ -16,7 +16,14 @@ def index(request):
     return render(request, 'core\index.html', context)
 
 def home(request):
-    return render(request, 'core\home.html')
+    products = Product.objects.filter( product_status="published").order_by("-id")
+    
+    context = {
+
+        "products": products
+        
+    }
+    return render(request, 'core\home.html', context)
 
 
 def product_list_view(request):
